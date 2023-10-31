@@ -22,5 +22,12 @@ RUN chmod +x /actions-runner/install_actions.sh \
 COPY token.sh entrypoint.sh app_token.sh /
 RUN chmod +x /token.sh /entrypoint.sh /app_token.sh
 
+# Install the timeout command
+RUN apt-get update && apt-get install -y coreutils
+
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["./bin/Runner.Listener", "run", "--startuptype", "service"]
+
+# Install the timeout command
+RUN apt-get update && apt-get install -y coreutils
+
+CMD ["timeout", "120", "./bin/Runner.Listener", "run", "--startuptype", "service"]
